@@ -4,9 +4,6 @@ var AchSoPlayer = function(rootElement, data, user, options) {
 };
 
 AchSoPlayer.prototype.start = function(rootElement, data, user, options) {
-    console.log(rootElement);
-    console.log(data);
-
     this.loaded = false;
     this.options = options;
     this.startModel(data, user);

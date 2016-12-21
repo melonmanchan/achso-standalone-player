@@ -88,7 +88,6 @@ AchSoPlayer.prototype.editAnnotation = function(e) {
 };
 
 AchSoPlayer.prototype.doSeek = function(time) {
-    console.log(time);
     this.isSeeking = true;
     this.time = time;
     this.seekVideo(time);
@@ -285,7 +284,6 @@ achso_player_actions[Playing] = {
     },
 
     userSeek: function(time, mouseState) {
-        console.trace()
         if (mouseState == MouseState.Down) {
             this.pauseVideo();
         }
@@ -297,7 +295,6 @@ achso_player_actions[Playing] = {
         this.setBatch(batch);
         ignoreBatch = batch;
 
-        console.log("time from userSeek: " + time);
         this.doSeek(time);
 
         if (mouseState == MouseState.Up) {
@@ -334,13 +331,12 @@ achso_player_actions[ManualPause] = {
     },
 
     userSeek: function(time) {
-        console.trace()
         var batch = this.batchNear(time, this.snapDistance);
+
         if (batch) {
             time = batch.time;
         }
-        console.log(batch);
-        console.log("time from manualpause: " + time);
+
         this.setBatch(batch);
         this.doSeek(time);
     },

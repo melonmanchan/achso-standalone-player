@@ -8,7 +8,10 @@
     <script type="text/javascript" src="./player/controller.js"></script>
     <script type="text/javascript" src="./player/model.js"></script>
     <script type="text/javascript" src="./player/view.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.teal-red.min.css">
     <link type="text/css" rel="stylesheet" href="./player.css">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
   <div class="acp-player acp-inline acp-noselect" id="achso_embed_player">
@@ -18,8 +21,8 @@
       </div>
       <div class="acp-annotation-edit">
         <input class="acp-annotation-text-input" type="text" />
-        <button class="acp-annotation-delete-button"><%= t('player.annotation_edit.delete') %></button>
-        <button class="acp-annotation-save-button"><%= t('player.annotation_edit.save') %></button>
+        <button class="acp-annotation-delete-button">Delete</button>
+        <button class="acp-annotation-save-button">Save</button>
       </div>
       <div class="acp-subtitles">
       </div>
@@ -47,26 +50,31 @@
       </div>
     </div>
     <div class="acp-overlay">
-      <a target="_parent" href=""><%= @manifest["title"] %></a>
+      <a target="_parent" href="">Title</a>
     </div>
   </div>
+  <script type="text/javascript">
+    var manifestBase64 = getParameterByName('m');
 
-  <script>
-    var manifest = <%= @manifest.to_json.html_safe %>;
-    var playerElement = document.querySelector("#achso_embed_player");
-    var startTime = 0.0;
+    if (!manifestBase64) {
+        alert('no manifest')
+    } else {
+        var manifest = atob(manifestBase64);
+        var playerElement = document.querySelector("#achso_embed_player");
+        var startTime = 0.0;
 
-    if (window.location.hash) {
-      var format = /t=(\d+(.\d+)?)s/;
-      var match = format.exec(window.location.hash);
-      if (match && match[1]) {
-        startTime = parseFloat(match[1]);
-      }
+        if (window.location.hash) {
+            var format = /t=(\d+(.\d+)?)s/;
+            var match = format.exec(window.location.hash);
+            if (match && match[1]) {
+                startTime = parseFloat(match[1]);
+            }
+        }
+
+        var player = new AchSoPlayer(playerElement, manifest, null, {
+            startTime: startTime,
+        });
     }
-
-    var player = new AchSoPlayer(playerElement, manifest, null, {
-        startTime: startTime,
-    });
 
   </script>
 </body>

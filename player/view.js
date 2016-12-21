@@ -30,7 +30,6 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
 
     this.doingWaitAnimation = false;
 
-    console.log(this.elements)
     // Video player
     this.elements.video.addEventListener("loadedmetadata", function() {
         var width = player.elements.video.videoWidth;
