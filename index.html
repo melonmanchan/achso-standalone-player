@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ach so! Standalone player</title>
+    <script type="text/javascript" src="./player/util.js"></script>
+    <script type="text/javascript" src="./player/achso_player.js"></script>
+    <script type="text/javascript" src="./player/controller.js"></script>
+    <script type="text/javascript" src="./player/model.js"></script>
+    <script type="text/javascript" src="./player/view.js"></script>
+    <link type="text/css" rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div class="acp-player acp-inline acp-noselect" id="achso_embed_player">
+    <div class="acp-video-background">
+      <div class="acp-video-wrapper">
+        <video class="acp-video"></video>
+      </div>
+      <div class="acp-annotation-edit">
+        <input class="acp-annotation-text-input" type="text" />
+        <button class="acp-annotation-delete-button"><%= t('player.annotation_edit.delete') %></button>
+        <button class="acp-annotation-save-button"><%= t('player.annotation_edit.save') %></button>
+      </div>
+      <div class="acp-subtitles">
+      </div>
+    </div>
+    <div class="acp-controls">
+      <i class="material-icons acp-control-button acp-play-button">&#xE037;</i>
+      <div class="acp-seek-bar">
+        <div class="acp-seek-bar-filler">
+          <div class="acp-seek-bar-ball">
+          </div>
+        </div>
+        <div class="acp-seek-catcher">
+        </div>
+      </div>
+      <div class="acp-end-space">
+      </div>
+      <i class="material-icons acp-control-button acp-undo-button acp-force-hidden-no-layout">&#xE166;</i>
+      <i class="material-icons acp-control-button acp-redo-button acp-force-hidden-no-layout">&#xE15A;</i>
+      <i class="material-icons acp-control-button acp-fullscreen-button acp-disabled">&#xE5D0;</i>
+      <div class="acp-end-space">
+      </div>
+      <div class="acp-wait-bar">
+      </div>
+      <div class="acp-wait-fade">
+      </div>
+    </div>
+    <div class="acp-overlay">
+      <a target="_parent" href=""><%= @manifest["title"] %></a>
+    </div>
+  </div>
+
+  <script>
+    var manifest = <%= @manifest.to_json.html_safe %>;
+    var playerElement = document.querySelector("#achso_embed_player");
+    var startTime = 0.0;
+
+    if (window.location.hash) {
+      var format = /t=(\d+(.\d+)?)s/;
+      var match = format.exec(window.location.hash);
+      if (match && match[1]) {
+        startTime = parseFloat(match[1]);
+      }
+    }
+
+    var player = new AchSoPlayer(playerElement, manifest, null, {
+        startTime: startTime,
+    });
+
+  </script>
+</body>
+</html>
