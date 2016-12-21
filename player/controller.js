@@ -17,6 +17,7 @@ AchSoPlayer.prototype.resetController = function(data) {
     if (this.batch) {
         this.setBatch(this.batchAt(this.time));
     }
+
     this.updateSeekBarView();
     this.updateAnnotationView();
 };
@@ -154,7 +155,6 @@ AchSoPlayer.prototype.selectedAnnotationMutated = function() {
 };
 
 AchSoPlayer.prototype.doEditAnnotation = function(e) {
-
     if (e.state == MouseState.Down) {
         var preUndoPoint = this.createUndoPoint();
         if (!this.batch) {

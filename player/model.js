@@ -45,7 +45,7 @@ AchSoPlayer.prototype.importAnnotation = function(annotation) {
 };
 
 AchSoPlayer.prototype.exportManifest = function(manifest) {
-    var manifest = _.cloneDeep(this.manifest);
+    var manifest = cloneDeep(this.manifest);
     var newAnnotations = [];
     for (var i = 0; i < this.batches.length; i++) {
         var batch = this.batches[i];
@@ -94,7 +94,7 @@ AchSoPlayer.prototype.allowEdit = function() {
 AchSoPlayer.prototype.createUndoPoint = function() {
     return {
         time: this.time,
-        batches: _.cloneDeep(this.batches),
+        batches: cloneDeep(this.batches),
         batchIndex: this.batches.indexOf(this.batch),
     };
 };

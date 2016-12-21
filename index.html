@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>Ach so! Standalone player</title>
     <script type="text/javascript" src="./player/util.js"></script>
     <script type="text/javascript" src="./player/achso_player.js"></script>
@@ -39,8 +39,8 @@
       </div>
       <div class="acp-end-space">
       </div>
-      <i class="material-icons acp-control-button acp-undo-button acp-force-hidden-no-layout">&#xE166;</i>
-      <i class="material-icons acp-control-button acp-redo-button acp-force-hidden-no-layout">&#xE15A;</i>
+      <i class="material-icons acp-control-button acp-undo-button">&#xE166;</i>
+      <i class="material-icons acp-control-button acp-redo-button">&#xE15A;</i>
       <i class="material-icons acp-control-button acp-fullscreen-button acp-disabled">&#xE5D0;</i>
       <div class="acp-end-space">
       </div>
@@ -50,32 +50,35 @@
       </div>
     </div>
     <div class="acp-overlay">
-      <a target="_parent" href="">Title</a>
+      <a id="video-title" target="_parent" href="">Title</a>
     </div>
   </div>
   <script type="text/javascript">
-    var manifestBase64 = getParameterByName('m');
+        var manifestBase64 = getParameterByName('m');
+        var user = { name: "Hemmo" };
 
-    if (!manifestBase64) {
-        alert('no manifest')
-    } else {
-        var manifest = atob(manifestBase64);
-        var playerElement = document.querySelector("#achso_embed_player");
-        var startTime = 0.0;
+        if (!manifestBase64) {
+            // TODO
+        } else {
+                var manifest = JSON.parse(atob(manifestBase64));
+                document.querySelector("#video-title").innerHTML = manifest.title;
+                var playerElement = document.querySelector("#achso_embed_player");
+                var startTime = 0.0;
 
-        if (window.location.hash) {
-            var format = /t=(\d+(.\d+)?)s/;
-            var match = format.exec(window.location.hash);
-            if (match && match[1]) {
-                startTime = parseFloat(match[1]);
-            }
+                if (window.location.hash) {
+                    var format = /t=(\d+(.\d+)?)s/;
+                    var match = format.exec(window.location.hash);
+                    if (match && match[1]) {
+                        startTime = parseFloat(match[1]);
+                    }
+                }
+
+                var player = new AchSoPlayer(playerElement, manifest, user, {
+                    startTime: startTime,
+                });
+
+                window.player = player;
         }
-
-        var player = new AchSoPlayer(playerElement, manifest, null, {
-            startTime: startTime,
-        });
-    }
-
   </script>
 </body>
 </html>

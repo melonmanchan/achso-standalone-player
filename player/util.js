@@ -4,6 +4,10 @@ function clamp(number, min, max) {
     return Math.min(Math.max(number, min), max);
 }
 
+function cloneDeep(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
 function getParameterByName(name, url) {
     if (!url) {
       url = window.location.href;
@@ -26,7 +30,7 @@ function stringToHTMLSafe(str) {
         '\'': '&apos;',
         '\n': '<br>',
     };
-    
+
     return str.replace(/[<>&"'\n]/g, function(match) {
         return escapes[match];
     });
