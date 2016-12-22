@@ -231,7 +231,7 @@ AchSoPlayer.prototype.annotationTextInput = function(text) {
 };
 
 AchSoPlayer.prototype.annotationSaveButton = function() {
-    this.notifyAnnotationEdited(this.selectedAnnotation, 0);
+    this.notifyAnnotationEdited(this.selectedAnnotation, this.getAnnotationIndex(this.selectedAnnotation));
     this.unselectAnnotation();
     this.updateAnnotationView();
 };
@@ -243,7 +243,7 @@ AchSoPlayer.prototype.annotationDeleteButton = function() {
     this.saveUndoPoint();
     this.updateUndoButtonsView();
 
-    this.notifyAnnotationDeleted(this.selectedAnnotation);
+    this.notifyAnnotationDeleted(this.getAnnotationIndex(this.selectedAnnotation));
     this.deleteAnnotation(this.selectedAnnotation);
     this.unselectAnnotation();
 
@@ -266,7 +266,7 @@ AchSoPlayer.prototype.notifyAnnotationEdited = function(updatedAnnotation, index
 };
 
 AchSoPlayer.prototype.notifyAnnotationDeleted = function(index) {
-    this.notifyParent("annotation:deleted", { deleted: index });
+    this.notifyParent("annotation:deleted", { index: index });
 };
 
 AchSoPlayer.prototype.notifyParent = function(type, data) {

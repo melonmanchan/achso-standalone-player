@@ -255,8 +255,10 @@ AchSoPlayer.prototype.addAnnotation = function(annotation) {
 AchSoPlayer.prototype.getAnnotationIndex = function (annotation) {
     var batch = this.batchAt(annotation.time);
     if (!batch) return -1;
-    var index = batch.annotations.indexOf(annotation);
-    return index;
+    var batchIndex = this.batches.indexOf(batch);
+    var annotationIndex = batch.annotations.indexOf(annotation);
+
+    return batchIndex + annotationIndex;
 }
 
 AchSoPlayer.prototype.deleteAnnotation = function(annotation) {
