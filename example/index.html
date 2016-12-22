@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ach so iframe embedding example</title>
+    <script src="../lib/base64.min.js"></script>
+</head>
+<body>
+    <h1>Ach So iframe example</h1>
+    <script type="text/javascript">
+    var manifest = {
+      "annotations": [
+        {
+          "author": {
+            "id": "",
+            "uri": "",
+            "name": "Matti J"
+          },
+          "position": {
+            "y": 0.61325,
+            "x": 0.348
+          },
+          "text": "First annotation!",
+          "time": 514,
+          "createdTimestamp": "2016-11-07T20:34:40.741+02:00"
+        },
+        {
+          "author": {
+            "id": "",
+            "uri": "",
+            "name": "Matti J"
+          },
+          "position": {
+            "y": 0.67009,
+            "x": 0.61658
+          },
+          "text": "Second annotation!",
+          "time": 1260,
+          "createdTimestamp": "2016-10-16T22:00:28.137+03:00"
+        }
+      ],
+      "author": {
+        "id": "",
+        "name": "Matti J",
+        "uri": ""
+      },
+      "date": "2016-10-16T18:34:32.027+03:00",
+      "deleteUri": "https://layersbox.aalto.fi/govitra/uploads/video-vWhF3Xkm1zJpBXjbZr230P6c",
+      "formatVersion": 1,
+      "id": "5895f316-933f-4692-9243-c45532514fd5",
+      "isPublic": true,
+      "location": {
+        "latitude": 60.1880443,
+        "longitude": 24.8004611,
+        "accuracy": 8
+      },
+      "revision": 12,
+      "rotation": 0,
+      "thumbUri": "https://aalto-achso.s3.eu-central-1.amazonaws.com/thumbs/video-vWhF3Xkm1zJpBXjbZr230P6c.jpg",
+      "title": "Keijumäki 6, Oct 16, 2016 18:34:32",
+      "videoUri": "https://aalto-achso.s3.eu-central-1.amazonaws.com/videos/video-vWhF3Xkm1zJpBXjbZr230P6c.mp4",
+      "genre": "good_work",
+      "uploadedAt": "2016-11-07T18:34:44Z",
+      "editedBy": "Matti J"
+    };
+
+    // Create the query parameter
+    var m = Base64.encodeURI(JSON.stringify(manifest));
+
+    // Create the iframe
+    var iframe = document.createElement('iframe');
+    iframe.width = 600;
+    iframe.height = 800;
+    iframe.setAttribute('allowFullScreen', '');
+    iframe.src = "../index.html?m=" + m;
+    iframe.name = "Ach So! embedded player";
+
+    document.querySelector('h1').appendChild(iframe);
+    </script>
+</body>
+</html>

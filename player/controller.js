@@ -44,6 +44,7 @@ AchSoPlayer.prototype.switchState = function(newState) {
     for (var i = 0; i < this.timeouts.length; i++) {
         window.clearTimeout(this.timeouts[i]);
     }
+
     this.timeouts.length = 0;
 
     this.unselectAnnotation();
@@ -246,11 +247,31 @@ AchSoPlayer.prototype.annotationDeleteButton = function() {
     this.updateSeekBarView();
 };
 
-achso_player_actions[Initial] = {
+AchSoPlayer.prototype.notifyAnnotationCreated = function(annotation) {
+    this.notifyParent("annotation:created", { annotation: annotation });
 };
 
+AchSoPlayer.prototype.notifyAnnotationUpdated = function(updatedAnnotation, index) {
+    this.notifyParent("annotation:updated", { annotation: updatedAnnotation,
+                                              index: index });
+};
+
+AchSoPlayer.prototype.notifyAnnotationDeleted = function(index) {
+    this.notifyParent("annotation:deleted", { deleted: index });
+};
+
+AchSoPlayer.prototype.notifyParent = function(type, data) {
+    if (this.data.id) {
+        data.id = this.data.id
+    }
+
+    window.parent.postMessage(JSON.stringify({data: data, type: type}), "*")
+};
+
+achso_player_actions[Initial] = { };
+
 achso_player_actions[Playing] = {
-    
+
     start: function(ignoreBatch) {
         this.playVideo();
         this.ignoreBatch = this.batch;
