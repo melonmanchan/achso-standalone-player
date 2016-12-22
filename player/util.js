@@ -106,9 +106,14 @@ function getRelativeCoordinates(event, reference) {
         if (event.type === 'touchend' || event.type === 'touchstart' || event.type === 'touchmove') {
             var touch = event.targetTouches[0];
             if (typeof touch !== 'undefined') {
-                var $el = $(el);
-                pos.x = touch.pageX - $el.offset().left;
-                pos.y = touch.pageY - $el.offset().top;
+                var rect = el.getBoundingClientRect();
+                var offset = {
+                    top: rect.top + document.body.scrollTop,
+                    left: rect.left + document.body.scrollLeft,
+                };
+
+                pos.x = touch.pageX - offset.left;
+                pos.y = touch.pageY - offset.top;
                 return pos;
             }
         }
