@@ -181,8 +181,8 @@ AchSoPlayer.prototype.doEditAnnotation = function(e) {
         };
 
     } else {
-
         var annotation = this.selectedAnnotation;
+
         if (annotation) {
             if (e.state == MouseState.Up && !this.dragging
                     && annotation == this.oldSelectedAnnotation) {
@@ -196,10 +196,12 @@ AchSoPlayer.prototype.doEditAnnotation = function(e) {
 
             var dx = (newPos.x - this.dragStartPos.x) * this.videoWidth;
             var dy = (newPos.y - this.dragStartPos.y) * this.videoHeight;
+
             if (dx * dx + dy * dy > Math.pow(this.annotationDragDeadZone, 2)) {
                 if (!this.annotationDeadZoneBroken) {
                     this.annotationDragStart();
                 }
+
                 this.dragging = true;
                 this.annotationDeadZoneBroken = true;
                 this.selectedAnnotationMutated();
@@ -229,6 +231,7 @@ AchSoPlayer.prototype.annotationTextInput = function(text) {
 };
 
 AchSoPlayer.prototype.annotationSaveButton = function() {
+    this.notifyAnnotationEdited(this.selectedAnnotation, 0);
     this.unselectAnnotation();
     this.updateAnnotationView();
 };
@@ -240,11 +243,13 @@ AchSoPlayer.prototype.annotationDeleteButton = function() {
     this.saveUndoPoint();
     this.updateUndoButtonsView();
 
+    this.notifyAnnotationDeleted(this.selectedAnnotation);
     this.deleteAnnotation(this.selectedAnnotation);
     this.unselectAnnotation();
 
     this.updateAnnotationView();
     this.updateSeekBarView();
+
 };
 
 AchSoPlayer.prototype.notifyLoaded = function() {
@@ -255,7 +260,7 @@ AchSoPlayer.prototype.notifyAnnotationCreated = function(annotation) {
     this.notifyParent("annotation:created", { annotation: annotation });
 };
 
-AchSoPlayer.prototype.notifyAnnotationUpdated = function(updatedAnnotation, index) {
+AchSoPlayer.prototype.notifyAnnotationEdited = function(updatedAnnotation, index) {
     this.notifyParent("annotation:updated", { annotation: updatedAnnotation,
                                               index: index });
 };
@@ -265,6 +270,8 @@ AchSoPlayer.prototype.notifyAnnotationDeleted = function(index) {
 };
 
 AchSoPlayer.prototype.notifyParent = function(type, data) {
+    if (!this.loaded && type != "player:loaded") return;
+
     if (this.data.id) {
         data.id = this.data.id
     }

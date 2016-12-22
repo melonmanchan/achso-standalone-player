@@ -234,6 +234,7 @@ AchSoPlayer.prototype.findOrCreateAnnotation = function(pos) {
         text: '',
         createdTimestamp: (new Date()).toISOString(),
     };
+
     batch.annotations.push(newAnnotation);
     return { annotation: newAnnotation, isNew: true };
 };
@@ -251,6 +252,13 @@ AchSoPlayer.prototype.addAnnotation = function(annotation) {
     batch.annotations.push(annotation);
 };
 
+AchSoPlayer.prototype.getAnnotationIndex = function (annotation) {
+    var batch = this.batchAt(annotation.time);
+    if (!batch) return -1;
+    var index = batch.annotations.indexOf(annotation);
+    return index;
+}
+
 AchSoPlayer.prototype.deleteAnnotation = function(annotation) {
     var batch = this.batchAt(annotation.time);
     if (!batch) return;
@@ -260,7 +268,7 @@ AchSoPlayer.prototype.deleteAnnotation = function(annotation) {
 
     if (batch.annotations.length > 0)
         return;
-    
+
     var batchIndex = this.batches.indexOf(batch);
     if (batchIndex < 0) return;
     this.batches.splice(batchIndex, 1);
@@ -290,7 +298,7 @@ AchSoPlayer.prototype.calculateAnnotationWaitTime = function(annotations)
     }
 
     waitTime = Math.min(waitTime, timeMaximum);
-    
+
     return waitTime;
 }
 
