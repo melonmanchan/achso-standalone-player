@@ -6,7 +6,8 @@
   "author": "Matti Jokitulppo <melonmanchan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "./node_modules/.bin/live-server ."
+    "start": "./node_modules/.bin/live-server .",
+    "deploy": "surge . https://achso-embed.surge.sh"
   },
   "devDependencies": {
     "live-server": "^1.1.0"
