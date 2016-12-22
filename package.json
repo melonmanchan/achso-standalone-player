@@ -1,0 +1,14 @@
+{
+  "name": "achso-standalone-player",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:melonmanchan/achso-standalone-player.git",
+  "author": "Matti Jokitulppo <melonmanchan@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "./node_modules/.bin/live-server ."
+  },
+  "devDependencies": {
+    "live-server": "^1.1.0"
+  }
+}
