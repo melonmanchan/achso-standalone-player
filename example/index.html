@@ -65,7 +65,7 @@
     };
 
     // Create the query parameter
-    var m = Base64.encodeURI(JSON.stringify(manifest));
+    var m = Base64.encode(JSON.stringify(manifest));
 
     // Create the iframe
     var iframe = document.createElement('iframe');
@@ -76,6 +76,15 @@
     iframe.name = "Ach So! embedded player";
 
     document.querySelector('h1').appendChild(iframe);
+
+    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+    eventer(messageEvent, function (e) {
+        console.log('Data received, ', e.data);
+    }, false);
+
     </script>
 </body>
 </html>

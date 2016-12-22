@@ -247,6 +247,10 @@ AchSoPlayer.prototype.annotationDeleteButton = function() {
     this.updateSeekBarView();
 };
 
+AchSoPlayer.prototype.notifyLoaded = function() {
+    this.notifyParent("player:loaded", { });
+};
+
 AchSoPlayer.prototype.notifyAnnotationCreated = function(annotation) {
     this.notifyParent("annotation:created", { annotation: annotation });
 };
@@ -265,7 +269,7 @@ AchSoPlayer.prototype.notifyParent = function(type, data) {
         data.id = this.data.id
     }
 
-    window.parent.postMessage(JSON.stringify({data: data, type: type}), "*")
+    window.parent.postMessage(JSON.stringify({ data: data, type: type }), "*");
 };
 
 achso_player_actions[Initial] = { };

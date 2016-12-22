@@ -11,6 +11,7 @@ AchSoPlayer.prototype.start = function(rootElement, data, user, options) {
     this.startController();
     this.switchState(ManualPause);
     this.loaded = true;
+    this.notifyLoaded();
 };
 
 AchSoPlayer.prototype.reset = function(data) {
