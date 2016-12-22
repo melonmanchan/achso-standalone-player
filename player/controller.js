@@ -256,10 +256,6 @@ AchSoPlayer.prototype.notifyLoaded = function() {
     this.notifyParent("player:loaded", { });
 };
 
-AchSoPlayer.prototype.notifyAnnotationCreated = function(annotation) {
-    this.notifyParent("annotation:created", { annotation: annotation });
-};
-
 AchSoPlayer.prototype.notifyAnnotationEdited = function(updatedAnnotation, index) {
     this.notifyParent("annotation:updated", { annotation: updatedAnnotation,
                                               index: index });
