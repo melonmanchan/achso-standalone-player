@@ -88,7 +88,7 @@ AchSoPlayer.prototype.exportAnnotation = function(annotation) {
 };
 
 AchSoPlayer.prototype.allowEdit = function() {
-    return !!this.user;
+    return (!this.options.viewOnly && (!!this.user));
 };
 
 AchSoPlayer.prototype.createUndoPoint = function() {

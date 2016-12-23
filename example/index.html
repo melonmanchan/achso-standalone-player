@@ -88,14 +88,14 @@
 
         // Create the query parameter
         var m = Base64.encode(JSON.stringify(manifest));
-        console.log(m)
+        var viewonly = false;
 
         // Create the iframe
         var iframe = document.createElement('iframe');
         iframe.width = 600;
         iframe.height = 1080;
         iframe.setAttribute('allowFullScreen', '');
-        iframe.src = "../index.html?m=" + m;
+        iframe.src = "../index.html?m=" + m + "&viewonly=" + viewonly;
         iframe.name = "Ach So! embedded player";
 
         document.querySelector('#player-wrapper').appendChild(iframe);

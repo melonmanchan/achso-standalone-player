@@ -56,12 +56,14 @@
   <script type="text/javascript">
       (function () {
         var manifestBase64 = getParameterByName('m');
+        var viewOnly = (getParameterByName('viewonly') == 'true');
         var user = { name: "Hemmo" };
 
         if (!manifestBase64) {
             console.error("Parsing base64 failed!");
             return;
         }
+
         var manifest = JSON.parse(Base64.decode(manifestBase64));
         var playerElement = document.querySelector("#achso_embed_player");
         var startTime = 0.0;
@@ -76,8 +78,9 @@
             }
         }
 
-        var player = new AchSoPlayer(playerElement, manifest, user, {
+        var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
+            viewOnly: viewOnly
         });
 
         window.player = player;
