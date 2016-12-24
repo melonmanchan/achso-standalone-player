@@ -263,20 +263,22 @@ AchSoPlayer.prototype.notifyLoaded = function() {
 
 AchSoPlayer.prototype.notifyAnnotationEditedOrCreated = function(annotation, index) {
     var isNew = annotation.isNew;
-    delete annotation.isNew;
+    var exportedAnnotation = this.exportAnnotation(annotation);
 
     if (isNew) {
-        this.notifyParent("annotation:created", { annotation: annotation,
+        this.notifyParent("annotation:created", { annotation: exportedAnnotation,
                                               index: index });
     } else {
-        this.notifyParent("annotation:updated", { annotation: annotation,
+        this.notifyParent("annotation:updated", { annotation: exportedAnnotation,
                                               index: index });
     }
 };
 
 AchSoPlayer.prototype.notifyAnnotationDeleted = function(annotation, index) {
-        this.notifyParent("annotation:deleted", { annotation: annotation,
-                                              index: index });
+    var exportedAnnotation = this.exportAnnotation(annotation);
+
+    this.notifyParent("annotation:deleted", { annotation: exportedAnnotation,
+                                          index: index });
 };
 
 AchSoPlayer.prototype.notifyParent = function(type, data) {
