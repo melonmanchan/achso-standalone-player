@@ -51,9 +51,11 @@ AchSoPlayer.prototype.switchState = function(newState) {
     this.stopWaitAnimation();
 
     this.actions = achso_player_actions[newState];
+
     if (this.actions.start) {
         this.actions.start.apply(this, Array.prototype.slice.call(arguments, 1));
     }
+
     this.state = newState;
 
     this.setPlayButton(newState == Initial || newState == ManualPause || newState == AnnotationEdit);
@@ -161,8 +163,11 @@ AchSoPlayer.prototype.doEditAnnotation = function(e) {
         if (!this.batch) {
             this.setBatch(this.findOrCreateBatch(this.time));
         }
+
         var result = this.findOrCreateAnnotation(e.pos);
         var annotation = result.annotation;
+        annotation.isNew = result.isNew;
+
         this.dragging = result.isNew;
         this.selectAnnotation(annotation, preUndoPoint);
         this.annotationDeadZoneBroken = false;
@@ -231,7 +236,7 @@ AchSoPlayer.prototype.annotationTextInput = function(text) {
 };
 
 AchSoPlayer.prototype.annotationSaveButton = function() {
-    this.notifyAnnotationEdited(this.selectedAnnotation, this.getAnnotationIndex(this.selectedAnnotation));
+    this.notifyAnnotationEditedOrCreated(this.selectedAnnotation, this.getAnnotationIndex(this.selectedAnnotation));
     this.unselectAnnotation();
     this.updateAnnotationView();
 };
@@ -256,9 +261,17 @@ AchSoPlayer.prototype.notifyLoaded = function() {
     this.notifyParent("player:loaded", { });
 };
 
-AchSoPlayer.prototype.notifyAnnotationEdited = function(updatedAnnotation, index) {
-    this.notifyParent("annotation:updated", { annotation: updatedAnnotation,
+AchSoPlayer.prototype.notifyAnnotationEditedOrCreated = function(annotation, index) {
+    var isNew = annotation.isNew;
+    delete annotation.isNew;
+
+    if (isNew) {
+        this.notifyParent("annotation:created", { annotation: annotation,
                                               index: index });
+    } else {
+        this.notifyParent("annotation:updated", { annotation: annotation,
+                                              index: index });
+    }
 };
 
 AchSoPlayer.prototype.notifyAnnotationDeleted = function(index) {
