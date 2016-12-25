@@ -78,6 +78,12 @@
 	bottom: -100px;
 	transition: bottom 0.2s ease-in, opacity 0.2s ease;
 }
+
+
+.acp-annotation-edit button {
+    padding: 2px;
+}
+
 .acp-annotation-edit.acp-visible {
 	bottom: 10px;
 	visibility: visible;
