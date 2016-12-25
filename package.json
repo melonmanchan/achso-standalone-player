@@ -7,9 +7,14 @@
   "license": "MIT",
   "scripts": {
     "start": "./node_modules/.bin/live-server .",
-    "deploy": "surge . https://achso-embed.surge.sh"
+    "deploy": "./bin/deploy.sh"
   },
   "devDependencies": {
-    "live-server": "^1.1.0"
+    "clean-css": "^3.4.23",
+    "html-minifier": "^3.2.3",
+    "live-server": "^1.1.0",
+    "uglify-js": "^2.7.5",
+    "useref": "^1.2.0",
+    "useref-file": "^0.2.1"
   }
 }
