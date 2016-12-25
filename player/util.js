@@ -170,6 +170,7 @@ var MouseState = {
 
 function relativeClickHandler(element, callback) {
     var data = { down: false };
+
     var mouseCallback = function(state) {
         return function(e) {
             e.preventDefault();
@@ -197,9 +198,11 @@ function relativeClickHandler(element, callback) {
             if (relative.y < 0) relative.y = 0;
             if (relative.x >= 1) relative.x = 1;
             if (relative.y >= 1) relative.y = 1;
+            console.log(relative);
             callback(state, relative);
         }
     };
+
     element.addEventListener('mousedown', mouseCallback(MouseState.Down));
     element.addEventListener('touchstart', mouseCallback(MouseState.Down));
 
@@ -318,8 +321,9 @@ function getAnnotationColorForHash(hash) {
         "#FF5722",
         "#795548",
         "#9E9E9E",
-        "#607D8B" 
+        "#607D8B"
     ];
+
     var index = hash % (materialDesignPalette.length - 1);
 
     if (index < 0) index *= -1;

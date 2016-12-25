@@ -97,9 +97,11 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
     this.elements.annotationTextInput.addEventListener("input", function() {
         player.annotationTextInput(player.elements.annotationTextInput.value);
     });
+
     this.elements.annotationSaveButton.addEventListener("click", function() {
         player.annotationSaveButton();
     });
+
     this.elements.annotationDeleteButton.addEventListener("click", function() {
         player.annotationDeleteButton();
     });
