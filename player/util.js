@@ -198,7 +198,6 @@ function relativeClickHandler(element, callback) {
             if (relative.y < 0) relative.y = 0;
             if (relative.x >= 1) relative.x = 1;
             if (relative.y >= 1) relative.y = 1;
-            console.log(relative);
             callback(state, relative);
         }
     };
