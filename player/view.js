@@ -151,9 +151,7 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
                 element.classList.remove("acp-selected-annotation");
             }
 
-            var name = annotation.author.name;
-            var hash = fnv1aHashString(name);
-            var color = getAnnotationColorForHash(hash);
+            var color = '#009688';
             var gradientString = "radial-gradient(rgba(255,255,255, 0.0) 37%, rgba(255,255,255, 0.9) 40%, rgba(255,255,255, 0.9) 45%, rgba(68,153,136, 0.8) 47%, rgba(68,153,136, 0.4) 53%, rgba(68,153,136, 0.0) 55%, rgba(68,153,136, 0.0) 56%, " + color  + " 60%, " + color + " 62%, rgba(85,204,153, 0.0) 66%)"
 
             element.style.left = cssPercent(annotation.pos.x);
