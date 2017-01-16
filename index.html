@@ -81,6 +81,18 @@
             }
         }
 
+        // add annotation button translations
+        var i18n_delete = getParameterByName('i18n_delete');
+        if (i18n_delete) {
+          document.querySelector('.acp-annotation-delete-button')
+            .innerHTML = i18n_delete;
+        }
+        var i18n_save = getParameterByName('i18n_save');
+        if (i18n_save) {
+          document.querySelector('.acp-annotation-save-button')
+            .innerHTML = i18n_save;
+        }
+
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
             viewOnly: viewOnly
