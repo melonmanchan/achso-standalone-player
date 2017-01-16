@@ -9,5 +9,3 @@ mv dist/temp.html dist/index.html
 cleancss -o dist/player.css player.css
 
 uglifyjs lib/base64.min.js player/*.js --compress --mangle -o dist/dist.js
-
-surge dist https://achso-embed.surge.sh
