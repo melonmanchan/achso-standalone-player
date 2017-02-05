@@ -60,7 +60,6 @@
       (function () {
         var manifestBase64 = getParameterByName('m');
         var viewOnly = (getParameterByName('viewonly') == 'true');
-        var user = { name: "Hemmo" };
 
         if (!manifestBase64) {
             console.error("Parsing base64 failed!");
@@ -83,15 +82,20 @@
 
         // add annotation button translations
         var i18n_delete = getParameterByName('i18n_delete');
+
         if (i18n_delete) {
           document.querySelector('.acp-annotation-delete-button')
             .innerHTML = i18n_delete;
         }
+
         var i18n_save = getParameterByName('i18n_save');
+
         if (i18n_save) {
           document.querySelector('.acp-annotation-save-button')
             .innerHTML = i18n_save;
         }
+
+        var user = manifest.currentUser || { name: 'Unknown user' };
 
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
