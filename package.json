@@ -6,7 +6,7 @@
   "author": "Matti Jokitulppo <melonmanchan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "./node_modules/.bin/live-server .",
+    "start": "./node_modules/.bin/live-server --port=12345 .",
     "deploy": "./bin/deploy.sh"
   },
   "devDependencies": {
