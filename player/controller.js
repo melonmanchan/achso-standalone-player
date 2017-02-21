@@ -288,6 +288,10 @@ AchSoPlayer.prototype.notifyParent = function(type, data) {
         data.id = this.data.id
     }
 
+    if (this.data.type) {
+        data.from = this.data.type;
+    }
+
     window.parent.postMessage(JSON.stringify({ data: data, type: type }), "*");
 };
 
