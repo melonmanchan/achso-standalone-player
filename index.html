@@ -95,7 +95,7 @@
             .innerHTML = i18n_save;
         }
 
-        var user = manifest.currentUser || { name: 'Unknown user' };
+        var user = manifest.currentUser || { username: 'Unknown user' };
 
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
