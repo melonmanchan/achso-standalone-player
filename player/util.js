@@ -9,6 +9,10 @@ function cloneDeep(obj) {
 }
 
 function dateToMMSS(time) {
+    if (isNaN(time)) {
+        return
+    }
+
     var min = Math.round( (time / 60) << 0);
     var sec = Math.round( (time) % 60);
     return (min.toString().length >= 2 ? min : '0' + min)
@@ -114,7 +118,7 @@ function getRelativeCoordinates(event, reference) {
         // Use offset coordinates and find common offsetParent
         var pos = {};
         if (event.type === 'touchend' || event.type === 'touchstart' || event.type === 'touchmove') {
-            var touch = event.targetTouches[0];
+            var touch = event.changedTouches[0];
             if (typeof touch !== 'undefined') {
                 var rect = el.getBoundingClientRect();
                 var offset = {
