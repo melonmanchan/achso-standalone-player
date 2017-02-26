@@ -8,6 +8,13 @@ function cloneDeep(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
 
+function dateToMMSS(time) {
+    var min = Math.round( (time / 60) << 0);
+    var sec = Math.round( (time) % 60);
+    return (min.toString().length >= 2 ? min : '0' + min)
+        + ':' + (sec.toString().length >= 2 ? sec : '0' + sec);
+}
+
 function getParameterByName(name, url) {
     if (!url) {
       url = window.location.href;

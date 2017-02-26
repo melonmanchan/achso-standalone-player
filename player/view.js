@@ -20,6 +20,7 @@ AchSoPlayer.prototype.fetchElements = function(root) {
         annotationDeleteButton: root.querySelector(".acp-annotation-delete-button"),
         subtitles: root.querySelector(".acp-subtitles"),
         overlay: root.querySelector(".acp-overlay"),
+        playbackTime: root.querySelector(".current-time")
     };
 };
 
@@ -203,6 +204,7 @@ AchSoPlayer.prototype.stopView = function() {
 
 AchSoPlayer.prototype.setBarPosition = function(time) {
     this.lastBarPosition = time;
+    this.elements.playbackTime.innerHTML = dateToMMSS(time);
     this.elements.seekBarFiller.style.width = cssPercent(time / this.videoDuration);
 };
 
