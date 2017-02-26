@@ -63,11 +63,14 @@ function DomView(opts)
 // Provide array of data to visualize.
 DomView.prototype.update = function(data)
 {
+    var i = 0;
+
     while (this.elements.length < data.length) {
-        var element = this.newElement();
+        var element = this.newElement(data[i]);
         element.style.visibility = "hidden";
         this.container.appendChild(element);
         this.elements.push(element);
+        i = i + 1;
     }
 
     for (var i = data.length; i < this.elements.length; i++) {

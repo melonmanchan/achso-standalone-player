@@ -223,7 +223,7 @@
 }
 
 .acp-seek-annotation.acp-waiting {
-	background: radial-gradient(rgba(170,51,51, 0.0) 47%, rgba(170,51,51, 1.0) 60%, rgba(170,51,51, 1.0) 62%, rgba(170,51,51, 0.0) 73%)
+    opacity: .5;
 }
 
 .acp-annotation {

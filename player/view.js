@@ -173,8 +173,25 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
     // Seek bar view
     this.seekBarView = new DomView({
         container: this.elements.seekBar,
-        newElement: function() {
-            return elemWithClasses('div', 'acp-seek-annotation');
+        newElement: function(batch) {
+            var el = elemWithClasses('div', 'acp-seek-annotation');
+
+            if (!batch.annotations) {
+                batch.annotations = [];
+            }
+
+            var ann = batch.annotations[0];
+
+            if (typeof ann !== 'undefined' && ann.author && (typeof ann.author.name !== 'undefined'
+                || typeof ann.author.username !== 'undefined')) {
+                var name = typeof ann.author.name !== 'undefined' ? ann.author.name : ann.author.username;
+                var hash = fnv1aHashString(name);
+                var color = getAnnotationColorForHash(hash);
+                var bg = "radial-gradient(rgba(255,0,0, 0.0) 47%, " + color + " 60%, " + color + " 62%, rgba(255,0,0, 0.0) 73%)";
+                el.style.background = bg;
+            }
+
+            return el;
         },
         toElement: function(element, batch) {
             if (this.state == AnnotationPause) {
