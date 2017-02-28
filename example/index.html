@@ -34,7 +34,7 @@
           "annotations": [
             {
               "author": {
-                "id": "",
+                "id": 1337,
                 "uri": "",
                 "name": "Matti J"
               },
@@ -48,7 +48,7 @@
             },
             {
               "author": {
-                "id": "",
+                "id": 1337,
                 "uri": "",
                 "name": "Matti J"
               },
@@ -62,7 +62,7 @@
             }
           ],
           "author": {
-            "id": "",
+            "id": 1337,
             "name": "Matti J",
             "uri": ""
           },
@@ -80,7 +80,7 @@
           "rotation": 0,
           "thumbUri": "https://aalto-achso.s3.eu-central-1.amazonaws.com/thumbs/video-vWhF3Xkm1zJpBXjbZr230P6c.jpg",
           "title": "Keijumäki 6, Oct 16, 2016 18:34:32",
-          "videoUri": "https://aalto-achso.s3.eu-central-1.amazonaws.com/videos/video-vWhF3Xkm1zJpBXjbZr230P6c.mp4",
+          "videoUri": "https://aalto-achso.s3.eu-central-1.amazonaws.com/videos/video-LtqXfwUlK7ZXQJaCcDVP8obf.mp4",
           "genre": "good_work",
           "uploadedAt": "2016-11-07T18:34:44Z",
           "editedBy": "Matti J"
@@ -89,13 +89,14 @@
         // Create the query parameter
         var m = Base64.encode(JSON.stringify(manifest));
         var viewonly = false;
+        var ownEditOnly = true;
 
         // Create the iframe
         var iframe = document.createElement('iframe');
         iframe.width = 800;
         iframe.height = 600;
         iframe.setAttribute('allowFullScreen', '');
-        iframe.src = "../index.html?m=" + m + "&viewonly=" + viewonly;
+        iframe.src = "../index.html?m=" + m + "&viewonly=" + viewonly + "&owneditonly=" + ownEditOnly;
         iframe.name = "Ach So! embedded player";
 
         document.querySelector('#player-wrapper').appendChild(iframe);

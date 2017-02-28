@@ -159,14 +159,23 @@ AchSoPlayer.prototype.selectedAnnotationMutated = function() {
 
 AchSoPlayer.prototype.doEditAnnotation = function(e) {
     if (e.state == MouseState.Down) {
+
         var preUndoPoint = this.createUndoPoint();
+
         if (!this.batch) {
             this.setBatch(this.findOrCreateBatch(this.time));
         }
 
         var result = this.findOrCreateAnnotation(e.pos);
+
         var annotation = result.annotation;
         annotation.isNew = result.isNew;
+
+        // Bail out if we're attempting to edit an annotation not made by the current user,
+        // and we've turned on "Own edit only".
+        if (!annotation.isNew && this.options.ownEditOnly && annotation.author.id != this.user.id) {
+            return;
+        }
 
         this.dragging = result.isNew;
         this.selectAnnotation(annotation, preUndoPoint);

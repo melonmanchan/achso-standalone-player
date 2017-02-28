@@ -61,6 +61,7 @@
       (function () {
         var manifestBase64 = getParameterByName('m');
         var viewOnly = (getParameterByName('viewonly') == 'true');
+        var ownEditOnly = (getParameterByName('owneditonly') == 'true');
 
         if (!manifestBase64) {
             console.error("Parsing base64 failed!");
@@ -96,11 +97,12 @@
             .innerHTML = i18n_save;
         }
 
-        var user = manifest.currentUser || { username: 'Unknown user' };
+        var user = manifest.currentUser || { username: 'Unknown user', id: -1 };
 
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
-            viewOnly: viewOnly
+            viewOnly: viewOnly,
+            ownEditOnly: ownEditOnly
         });
 
         window.player = player;
