@@ -59,6 +59,11 @@ AchSoPlayer.prototype.switchState = function(newState) {
     this.state = newState;
 
     this.setPlayButton(newState == Initial || newState == ManualPause || newState == AnnotationEdit);
+
+    if (newState == ManualPause && this.options.lazyLoadVideo) {
+        this.setPlayButton(true, true);
+    }
+
     this.updateSeekBarView();
     this.updateUndoButtonsView();
     return this;

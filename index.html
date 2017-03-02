@@ -20,7 +20,7 @@
   <div class="acp-player acp-inline acp-noselect" id="achso_embed_player">
     <div class="acp-video-background">
       <div class="acp-video-wrapper">
-        <video class="acp-video"></video>
+        <video class="acp-video" preload="none"></video>
       </div>
       <div class="acp-annotation-edit">
         <input class="acp-annotation-text-input" type="text" />
@@ -62,6 +62,11 @@
         var manifestBase64 = getParameterByName('m');
         var viewOnly = (getParameterByName('viewonly') == 'true');
         var ownEditOnly = (getParameterByName('owneditonly') == 'true');
+        var lazyLoadVideo = (getParameterByName('lazyload') == 'true');
+
+          if (!lazyLoadVideo) {
+              document.querySelector('.acp-video').removeAttribute('preload');
+          }
 
         if (!manifestBase64) {
             console.error("Parsing base64 failed!");
@@ -102,6 +107,7 @@
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
             viewOnly: viewOnly,
+            lazyLoadVideo: lazyLoadVideo,
             ownEditOnly: ownEditOnly
         });
 

@@ -86,6 +86,17 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
         player.fullscreenToggle();
     });
 
+    if (this.options.lazyLoadVideo === true) {
+        var lazyLoad = function (event) {
+            event.preventDefault();
+            this.elements.video.removeAttribute('preload');
+            this.elements.root.removeEventListener('click', lazyLoad, false);
+            return false;
+        }.bind(this);
+
+        this.elements.root.addEventListener('click', lazyLoad, false);
+    }
+
     this.elements.fullscreenButton.classList.remove("acp-disabled");
 
     // Annotation dragging controls
@@ -210,6 +221,9 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
     this.elements.video.src = data.videoUri;
 
     this.poll();
+
+    if (this.options.lazyLoadVideo === true) {
+    }
 };
 
 AchSoPlayer.prototype.resetView = function() {
@@ -329,10 +343,10 @@ AchSoPlayer.prototype.seekVideo = function(time) {
     this.elements.video.currentTime = time;
 };
 
-AchSoPlayer.prototype.setPlayButton = function(isPlay) {
+AchSoPlayer.prototype.setPlayButton = function(isPlay, forceActive) {
     var button = this.elements.playButton;
 
-    if (this.active) {
+    if (this.active || forceActive) {
         button.classList.remove("acp-disabled");
     } else {
         button.classList.add("acp-disabled");

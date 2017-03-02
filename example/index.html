@@ -90,13 +90,14 @@
         var m = Base64.encode(JSON.stringify(manifest));
         var viewonly = false;
         var ownEditOnly = true;
+        var lazyLoadVideo = true;
 
         // Create the iframe
         var iframe = document.createElement('iframe');
         iframe.width = 800;
         iframe.height = 600;
         iframe.setAttribute('allowFullScreen', '');
-        iframe.src = "../index.html?m=" + m + "&viewonly=" + viewonly + "&owneditonly=" + ownEditOnly;
+        iframe.src = "../index.html?m=" + m + "&viewonly=" + viewonly + "&owneditonly=" + ownEditOnly + "&lazyload=" + lazyLoadVideo;
         iframe.name = "Ach So! embedded player";
 
         document.querySelector('#player-wrapper').appendChild(iframe);
