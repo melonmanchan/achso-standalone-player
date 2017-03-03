@@ -54,9 +54,8 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
             var r = this.buffered;
             var total = this.duration;
 
-            var start = r.start(0.01);
             var end = r.end(0);
-            var newValue = Math.ceil((end/total)*100);
+            var newValue = Math.ceil((end / total)*100);
 
             player.elements.loadedPercentage.innerHTML = newValue + " %";
 
