@@ -20,7 +20,8 @@ AchSoPlayer.prototype.fetchElements = function(root) {
         annotationDeleteButton: root.querySelector(".acp-annotation-delete-button"),
         subtitles: root.querySelector(".acp-subtitles"),
         overlay: root.querySelector(".acp-overlay"),
-        playbackTime: root.querySelector(".current-time")
+        playbackTime: root.querySelector(".current-time"),
+        loadedPercentage: root.querySelector('.acp-loaded')
     };
 };
 
@@ -46,6 +47,23 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
 
     this.elements.video.addEventListener("timeupdate", function() {
         player.timeUpdate(player.elements.video.currentTime);
+    });
+
+    this.elements.video.addEventListener("progress", function(e) {
+        if (this.buffered.length > 0) {
+            var r = this.buffered;
+            var total = this.duration;
+
+            var start = r.start(0.01);
+            var end = r.end(0);
+            var newValue = Math.ceil((end/total)*100);
+
+            player.elements.loadedPercentage.innerHTML = newValue + " %";
+
+            if (newValue >= 100) {
+                player.elements.loadedPercentage.classList.add('fade-out');
+            }
+        }
     });
 
     this.elements.video.addEventListener("ended", function() {

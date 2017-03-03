@@ -29,6 +29,7 @@
       </div>
       <div class="acp-subtitles">
       </div>
+    <span class="acp-loaded">0%</span>
     </div>
     <div class="acp-controls">
       <i class="material-icons acp-control-button acp-play-button">&#xE037;</i>
@@ -63,6 +64,7 @@
         var viewOnly = (getParameterByName('viewonly') == 'true');
         var ownEditOnly = (getParameterByName('owneditonly') == 'true');
         var lazyLoadVideo = (getParameterByName('lazyload') == 'true');
+
 
           if (!lazyLoadVideo) {
               document.querySelector('.acp-video').removeAttribute('preload');

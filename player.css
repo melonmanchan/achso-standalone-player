@@ -7,6 +7,21 @@
     height: 90vh;
 }
 
+.fade-out {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.acp-loaded {
+    pointer-events: none;
+    color: #fff;
+    font-size: 2em;
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+}
+
 .current-time {
     width: 46px;
     color: #fff;
