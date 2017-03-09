@@ -65,6 +65,7 @@
         var ownEditOnly = (getParameterByName('owneditonly') == 'true');
         var lazyLoadVideo = (getParameterByName('lazyload') == 'true');
 
+          lazyLoadVideo = false;
 
           if (!lazyLoadVideo) {
               document.querySelector('.acp-video').removeAttribute('preload');
@@ -105,7 +106,6 @@
         }
 
         var user = manifest.currentUser || { username: 'Unknown user', id: -1 };
-
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
             viewOnly: viewOnly,
@@ -114,6 +114,15 @@
         });
 
         window.player = player;
+          if (navigator.userAgent.indexOf("Android 4") != -1) {
+              document.querySelector('.acp-play-button').classList.remove('acp-disabled');
+              var playVideo = function () {
+                  document.querySelector('video').play();
+                  document.removeEventListener('click', playVideo);
+              }
+              document.addEventListener('click', playVideo);
+          }
+
       })();
   </script>
 </body>
