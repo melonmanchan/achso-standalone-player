@@ -19,6 +19,25 @@ function dateToMMSS(time) {
         + ':' + (sec.toString().length >= 2 ? sec : '0' + sec);
 }
 
+function getBatchColor(batch) {
+    if (!batch.annotations) {
+        batch.annotations = [];
+    }
+
+    var ann = batch.annotations[0];
+
+    if (typeof ann !== 'undefined' && ann.author && (typeof ann.author.name !== 'undefined'
+        || typeof ann.author.username !== 'undefined')) {
+        var name = typeof ann.author.name !== 'undefined' ? ann.author.name : ann.author.username;
+        var hash = fnv1aHashString(name);
+        var color = getAnnotationColorForHash(hash);
+
+        return color;
+
+    }
+}
+
+
 function getParameterByName(name, url) {
     if (!url) {
       url = window.location.href;

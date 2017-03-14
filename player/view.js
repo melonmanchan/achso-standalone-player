@@ -204,17 +204,9 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
         newElement: function(batch) {
             var el = elemWithClasses('div', 'acp-seek-annotation');
 
-            if (!batch.annotations) {
-                batch.annotations = [];
-            }
+            var color = getBatchColor(batch);
 
-            var ann = batch.annotations[0];
-
-            if (typeof ann !== 'undefined' && ann.author && (typeof ann.author.name !== 'undefined'
-                || typeof ann.author.username !== 'undefined')) {
-                var name = typeof ann.author.name !== 'undefined' ? ann.author.name : ann.author.username;
-                var hash = fnv1aHashString(name);
-                var color = getAnnotationColorForHash(hash);
+            if (color) {
                 var bg = "radial-gradient(rgba(255,0,0, 0.0) 47%, " + color + " 60%, " + color + " 62%, rgba(255,0,0, 0.0) 73%)";
                 el.style.background = bg;
             }
@@ -222,11 +214,19 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
             return el;
         },
         toElement: function(element, batch) {
+            var color = getBatchColor(batch);
+
+            if (color) {
+                var bg = "radial-gradient(rgba(255,0,0, 0.0) 47%, " + color + " 60%, " + color + " 62%, rgba(255,0,0, 0.0) 73%)";
+                element.style.background = bg;
+            }
+
             if (this.state == AnnotationPause) {
                 element.classList.add("acp-waiting");
             } else {
                 element.classList.remove("acp-waiting");
             }
+
             element.style.left = cssPercent(batch.time / this.videoDuration);
         }.bind(this),
     });

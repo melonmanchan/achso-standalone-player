@@ -65,8 +65,6 @@
         var ownEditOnly = (getParameterByName('owneditonly') == 'true');
         var lazyLoadVideo = (getParameterByName('lazyload') == 'true');
 
-          lazyLoadVideo = false;
-
           if (!lazyLoadVideo) {
               document.querySelector('.acp-video').removeAttribute('preload');
           }
@@ -106,6 +104,7 @@
         }
 
         var user = manifest.currentUser || { username: 'Unknown user', id: -1 };
+
         var player = new AchSoPlayer(playerElement, manifest, user,  {
             startTime: startTime,
             viewOnly: viewOnly,

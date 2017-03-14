@@ -182,6 +182,11 @@ AchSoPlayer.prototype.doEditAnnotation = function(e) {
             return;
         }
 
+        // Refresh so that color is updated
+        if (result.isNew) {
+            this.updateSeekBarView();
+        }
+
         this.dragging = result.isNew;
         this.selectAnnotation(annotation, preUndoPoint);
         this.annotationDeadZoneBroken = false;
