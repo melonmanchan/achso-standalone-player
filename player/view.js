@@ -69,6 +69,13 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
         player.stopOnEnd();
     });
 
+    this.elements.video.addEventListener("error", function(e) {
+      window.parent.postMessage(JSON.stringify({
+        data: {id: data.id},
+        type: 'video:error'
+      }), "*");
+    });
+
     // @BrowserHack(Firefox): Seeking when paused results in black frames
     // sometimes with Firefox so force repaint the video on seek.
     if (/firefox/i.test(navigator.userAgent)) {
@@ -486,4 +493,3 @@ AchSoPlayer.prototype.updateUndoButtonsView = function(undo, redo) {
         this.elements.redoButton.classList.add("acp-disabled");
     }
 };
-
