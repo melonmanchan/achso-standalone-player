@@ -38,6 +38,11 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
         var height = player.elements.video.videoHeight;
         player.setVideoSize(width, height);
         player.activate();
+
+        window.parent.postMessage(JSON.stringify({
+          data: {id: data.id},
+          type: 'video:loadedmetadata'
+        }), "*");
     });
 
     this.elements.video.addEventListener("durationchange", function() {
