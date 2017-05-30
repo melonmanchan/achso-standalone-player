@@ -38,6 +38,11 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
         var height = player.elements.video.videoHeight;
         player.setVideoSize(width, height);
         player.activate();
+
+        window.parent.postMessage(JSON.stringify({
+          data: {id: data.id},
+          type: 'video:loadedmetadata'
+        }), "*");
     });
 
     this.elements.video.addEventListener("durationchange", function() {
@@ -67,6 +72,13 @@ AchSoPlayer.prototype.startView = function(rootElement, data) {
 
     this.elements.video.addEventListener("ended", function() {
         player.stopOnEnd();
+    });
+
+    this.elements.video.addEventListener("error", function(e) {
+      window.parent.postMessage(JSON.stringify({
+        data: {id: data.id},
+        type: 'video:error'
+      }), "*");
     });
 
     // @BrowserHack(Firefox): Seeking when paused results in black frames
@@ -486,4 +498,3 @@ AchSoPlayer.prototype.updateUndoButtonsView = function(undo, redo) {
         this.elements.redoButton.classList.add("acp-disabled");
     }
 };
-
